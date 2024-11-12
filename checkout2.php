@@ -4,7 +4,7 @@
                 @include('connection/connect.php');
                 @include('tailwindcss.php');
 
-                $id = $_GET['id'];
+                $id = $_GET['userid'];
                 //fetch user info
                 $selectuser = "SELECT * FROM users WHERE id = '$id'";
                 $resultuser = mysqli_query($conn, $selectuser);
@@ -16,20 +16,24 @@
                 $resultcart = mysqli_query($conn, $selectcart);
                 // $rowcart = mysqli_fetch_array($resultcart);
                 $cartcount = mysqli_num_rows($resultcart);
-                $artid = $rowcart["artid"];
+                // $artid = $rowcart["artid"];
 
 
 
-                //selct product info according to cart item artid
-                $select = "SELECT * FROM art WHERE artid = '$artid'";
-                $result = mysqli_query($conn, $select);
+                // //selct product info according to cart item artid
+                // $select = "SELECT * FROM art WHERE artid = '$artid'";
+                // $result = mysqli_query($conn, $select);
 
 
                 $product_ids = [];
+
+
+                $selectedcart = "SELECT * FROM testorder WHERE buyer = '$email' && bought = 0";
+                $resultselectedcart = mysqli_query($conn, $selectedcart);
                 
 
                 // Collect product details
-                while ($row = mysqli_fetch_array($resultcart)) {
+                while ($row = mysqli_fetch_array($resultselectedcart)) {
                     $product_ids[] = $row['id'];
                 } // Add each product ID to the array
                 ?>
@@ -58,7 +62,6 @@
 
     <div class="flex flex-col items-center border-b bg-white py-4 sm:flex-row sm:px-10 lg:px-20 xl:px-32">
         <a href="#" class="text-2xl font-bold text-gray-800">sneekpeeks</a>
-        <p><?php echo "selected product ids".json_encode($product_ids);?></p>
         <div class="mt-4 py-2 text-xs sm:mt-0 sm:ml-auto sm:text-base">
             <div class="relative">
                 <ul class="relative flex w-full items-center justify-between space-x-2 sm:space-x-4">
@@ -92,9 +95,11 @@
             <p class="text-gray-400">Check your items. And select a suitable shipping method.</p>
             <div class="mt-8 space-y-3 rounded-lg border bg-white px-2 py-4 sm:px-6">
                 <?php
+                $qty = 0;
                 while ($rowcart = mysqli_fetch_array($resultcart)) {
                     $itemid = $rowcart["artid"];
                     $sellerid = $rowcart["sellerid"];
+                    $product_ids[] = $rowcart['id'];
                     $selectproduct = "SELECT * FROM art WHERE artid = '$itemid'";
                     $resultproduct = mysqli_query($conn, $selectproduct);
                     $rowproduct = mysqli_fetch_assoc($resultproduct);
@@ -168,6 +173,15 @@
                     <label for="card-holder" class="mt-4 mb-2 block text-sm font-medium">Paying Phone Number</label>
                     <div class="relative px-2">
                         <input type="text" id="card-holder" required name="phone" name="card-holder" class="w-full rounded-md border border-gray-200 px-4 py-3 pl-11 text-sm uppercase shadow-sm outline-none focus:z-10 focus:border-blue-500 focus:ring-blue-500" placeholder="0753425241" />
+                        <div class="pointer-events-none absolute inset-y-0 left-0 inline-flex items-center px-3">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M15 9h3.75M15 12h3.75M15 15h3.75M4.5 19.5h15a2.25 2.25 0 002.25-2.25V6.75A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25v10.5A2.25 2.25 0 004.5 19.5zm6-10.125a1.875 1.875 0 11-3.75 0 1.875 1.875 0 013.75 0zm1.294 6.336a6.721 6.721 0 01-3.17.789 6.721 6.721 0 01-3.168-.789 3.376 3.376 0 016.338 0z" />
+                            </svg>
+                        </div>
+                    </div>
+                    <label for="card-holder" class="hidden mt-4 mb-2 block text-sm font-medium">Selected Ids</label>
+                    <div class="relative px-2">
+                        <input type="text" name="product_ids" value="<?php echo htmlspecialchars(json_encode($product_ids)); ?>" id="card-holder" required name="card-holder" class="hidden w-full rounded-md border border-gray-200 px-4 py-3 pl-11 text-sm uppercase shadow-sm outline-none focus:z-10 focus:border-blue-500 focus:ring-blue-500" placeholder="0753425241" />
                         <div class="pointer-events-none absolute inset-y-0 left-0 inline-flex items-center px-3">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M15 9h3.75M15 12h3.75M15 15h3.75M4.5 19.5h15a2.25 2.25 0 002.25-2.25V6.75A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25v10.5A2.25 2.25 0 004.5 19.5zm6-10.125a1.875 1.875 0 11-3.75 0 1.875 1.875 0 013.75 0zm1.294 6.336a6.721 6.721 0 01-3.17.789 6.721 6.721 0 01-3.168-.789 3.376 3.376 0 016.338 0z" />

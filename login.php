@@ -45,11 +45,11 @@ else{
 
 ?>
 <div class="w-full justify-center items-center h-screen">
-    <div class="w-full h-full flex flex-row justify-evenly items-center sm:px-16 px-6">
-        <div class="w-[50%]">
+    <div class="w-full h-full flex sm:flex-row flex-col justify-evenly items-center sm:px-16 px-6">
+        <div class="md:w-[50%] w-full">
             <img src="assets/auth.png" alt="">
         </div>
-        <div class="w-[50%]">
+        <div class="w-full md:w-[50%]">
             <form action="" method="post">
                 <?php
                 if (isset($error)) {
@@ -77,7 +77,7 @@ else{
                         <input name="password" type="password" placeholder="enter password" class="px-4 py-2 rounded-lg border border-slate-300 border-1">
                     </div>
                     <div>
-                        <button type="submit" name="login" class="bg-purple-600 h-10 w-40 rounded-lg text-white mt-3">Login</button>
+                        <button type="submit" name="login" class="bg-purple-600 h-10 md:w-40 w-full rounded-lg text-white mt-3">Login</button>
                     </div>
 
                 </div>

@@ -52,11 +52,11 @@ if (isset($_POST['create_account'])) {
 
 ?>
 <div class="w-full justify-center items-center h-screen">
-    <div class="w-full h-full flex flex-row justify-evenly items-center sm:px-16 px-6">
-        <div class="w-[50%]">
+    <div class="w-full h-full flex md:flex-row flex-col justify-evenly items-center sm:px-16 px-6">
+        <div class="md:w-[50%] w-full">
             <img src="assets/reg.png" alt="">
         </div>
-        <div class="w-[50%]">
+        <div class="md:w-[50%] w-full">
             <form action="" method="post">
                 <h1 class="text-3xl font-semibold tracking-wide">Welcome to Art Gallery</h1>
                 <p class="text-slate-400">Create your account!</p>
@@ -91,7 +91,7 @@ if (isset($_POST['create_account'])) {
                         <input type="password" name="password" placeholder="enter password" class="px-4 py-2 rounded-lg border border-slate-300 border-1">
                     </div>
                     <div>
-                        <button name="create_account" class="bg-purple-600 h-10 w-40 rounded-lg text-white mt-3">SignUp</button>
+                        <button name="create_account" class="bg-purple-600 h-10 w-full md:w-40 rounded-lg text-white mt-3">SignUp</button>
                     </div>
 
                 </div>

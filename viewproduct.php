@@ -40,7 +40,7 @@ $sellerid = $row['sellerid'];
 $useremail = $_SESSION['email'];
 
 if(isset($_POST['cart'])){
-    $available = "SELECT * FROM testorder WHERE buyer = '$useremail' && artid = '$artid'";
+    $available = "SELECT * FROM testorder WHERE buyer = '$useremail' && artid = '$artid' && bought = 0";
     $collectall = mysqli_query($conn,$available);
 
 
@@ -211,10 +211,7 @@ if(isset($_POST['cart'])){
                         
                         <form action="" method="post">
                             <?php
-                            if($alreadyincart){
-                                echo '<div class="alert alert-warning" role="alert">Item already in cart <a href="cart.php">Go to cart</a> </div>';
-                              
-                            }
+                            
                             ?>
                             <button type="submit" class='btn btn-primary shadow-0' name="cart"> <i class='me-1 fa fa-shopping-basket'></i>Order </button>
                         </form>

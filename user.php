@@ -1,6 +1,7 @@
 <?php
 session_start();
 @include('components/navbar.php');
+@include('tailwindcss.php');
 @include('connection/connect.php');
 if($_SESSION['logged_in'] !== true){
     header('location:login.php');
@@ -41,7 +42,7 @@ $collected = mysqli_query($conn,$selectart);
 
 <body>
     <aside class="text-center bg-gradient-primary-to-secondary">
-        <div class="container px-5 p-3">
+        <div class="container md:px-5 p-3">
             <div class="row gx-5 justify-content-center">
                 <div class="col-xl-8">
                     <div class="h2 fs-1 text-white mb-4">"Welcome back <?php echo
@@ -61,41 +62,70 @@ $collected = mysqli_query($conn,$selectart);
             </div>
         </div>
     </aside>
-    <div class="container mx-auto" style="display:grid;place-items:left;">
-        <div class="row my-5">
+   
 
-        <?php while($row = mysqli_fetch_array($collected)){?>
-            <div class="col-lg-4 my-3">
-                <div class="card">
-                    <div class="card-img">
-                        <img class="card-img-top" style="max-height:12rem;height:13rem;" src="uploads/<?=$row['image'] ?>" alt="">
-                    </div>
-                    <div class="card-info">
-                        <p class="text-title"><?php echo $row['name']?> </p>
-                        <p class="text-body"><?php echo $row['description']?></p>
-                    </div>
-                    <div class="card-footer">
-                        <span class="text-title">Ksh.<?php echo $row['price']?></span>
-                        <?php
-                        echo '<a href="viewproduct.php?id='.$row['id'].'" class="card-button">
-                            <svg class="svg-icon" viewBox="0 0 20 20">
-                                <path d="M17.72,5.011H8.026c-0.271,0-0.49,0.219-0.49,0.489c0,0.271,0.219,0.489,0.49,0.489h8.962l-1.979,4.773H6.763L4.935,5.343C4.926,5.316,4.897,5.309,4.884,5.286c-0.011-0.024,0-0.051-0.017-0.074C4.833,5.166,4.025,4.081,2.33,3.908C2.068,3.883,1.822,4.075,1.795,4.344C1.767,4.612,1.962,4.853,2.231,4.88c1.143,0.118,1.703,0.738,1.808,0.866l1.91,5.661c0.066,0.199,0.252,0.333,0.463,0.333h8.924c0.116,0,0.22-0.053,0.308-0.128c0.027-0.023,0.042-0.048,0.063-0.076c0.026-0.034,0.063-0.058,0.08-0.099l2.384-5.75c0.062-0.151,0.046-0.323-0.045-0.458C18.036,5.092,17.883,5.011,17.72,5.011z"></path>
-                                <path d="M8.251,12.386c-1.023,0-1.856,0.834-1.856,1.856s0.833,1.853,1.856,1.853c1.021,0,1.853-0.83,1.853-1.853S9.273,12.386,8.251,12.386z M8.251,15.116c-0.484,0-0.877-0.393-0.877-0.874c0-0.484,0.394-0.878,0.877-0.878c0.482,0,0.875,0.394,0.875,0.878C9.126,14.724,8.733,15.116,8.251,15.116z"></path>
-                                <path d="M13.972,12.386c-1.022,0-1.855,0.834-1.855,1.856s0.833,1.853,1.855,1.853s1.854-0.83,1.854-1.853S14.994,12.386,13.972,12.386z M13.972,15.116c-0.484,0-0.878-0.393-0.878-0.874c0-0.484,0.394-0.878,0.878-0.878c0.482,0,0.875,0.394,0.875,0.878C14.847,14.724,14.454,15.116,13.972,15.116z"></path>
-                            </svg>
-                        </a>';
-                        ?>
-                    </div>
+
+
+
+    <!-- source: https://github.com/mfg888/Responsive-Tailwind-CSS-Grid/blob/main/index.html -->
+
+
+
+<!-- ✅ Grid Section - Starts Here 👇 -->
+<section id="Projects"
+    class="w-fit mx-auto grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2 justify-items-center justify-center gap-y-20 gap-x-14 mt-10 mb-5">
+    <?php while($row = mysqli_fetch_array($collected)){?>
+    <!--   ✅ Product card 1 - Starts Here 👇 -->
+    <div class="md:w-72 w-full bg-white shadow-md rounded-xl duration-500 hover:scale-105 hover:shadow-xl">
+        <a href="viewproduct.php?id=<?php echo $row['id']?>">
+            <img className="w-full object-fit" src="uploads/<?=$row['image'] ?>"
+                    alt="Product" class="h-80 w-72 object-cover rounded-t-xl" />
+            <div class="px-4 py-3 w-72">
+                <span class="text-gray-400 mr-3 uppercase text-xs">Brand</span>
+                <p class="text-lg font-bold text-black truncate block capitalize"><?php echo $row['name']?></p>
+                <div class="flex items-center">
+                    <p class="text-lg font-semibold text-black cursor-auto my-3">Kes.<?php echo $row['price']?></p>
+                    <del>
+                        <p class="text-sm text-gray-600 cursor-auto ml-2">$<?php echo $row['price']?></p>
+                    </del>
+                    <div class="ml-auto"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                            fill="currentColor" class="bi bi-bag-plus" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd"
+                                d="M8 7.5a.5.5 0 0 1 .5.5v1.5H10a.5.5 0 0 1 0 1H8.5V12a.5.5 0 0 1-1 0v-1.5H6a.5.5 0 0 1 0-1h1.5V8a.5.5 0 0 1 .5-.5z" />
+                            <path
+                                d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1zm3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4h-3.5zM2 5h12v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V5z" />
+                        </svg></div>
                 </div>
             </div>
-            <?php
+        </a>
+    </div>
+    <?php
         }
         ?>
-            
-            
-            
-        </div>
-    </div>
+    <!--   🛑 Product card 1 - Ends Here  -->
+
+    <!--   ✅ Product card 2 - Starts Here 👇 -->
+    
+    
+
+</section>
+
+<!-- 🛑 Grid Section - Ends Here -->
+
+
+<!-- credit -->
+
+
+<!-- Support Me 🙏🥰 -->
+<script src="https://storage.ko-fi.com/cdn/scripts/overlay-widget.js"></script>
+<script>
+    kofiWidgetOverlay.draw('mohamedghulam', {
+            'type': 'floating-chat',
+            'floating-chat.donateButton.text': 'Support me',
+            'floating-chat.donateButton.background-color': '#323842',
+            'floating-chat.donateButton.text-color': '#fff'
+        });
+</script>
 </body>
 
 </html>

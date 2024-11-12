@@ -2,6 +2,7 @@
 session_start();
 @include('components/navbar.php');
 @include('connection/connect.php');
+@include('tailwindcss.php');
 $emailsess = $_SESSION['email'];
 // echo "session email".$emailsess;
 
@@ -23,7 +24,7 @@ $row = mysqli_fetch_array($result);
 </head>
 
 <body>
-    <div class="container bootstrap snippets bootdey card mt-5">
+    <div class="container  ">
         <h1 class="text-primary">Edit Profile</h1>
         <hr>
         <div class="row">
@@ -92,7 +93,7 @@ $row = mysqli_fetch_array($result);
 </body>
 <style>
     body {
-        margin-top: 150px;
+        /* margin-top: 150px; */
     }
     .card{
         padding:40px;

@@ -19,7 +19,7 @@ function sendVerificationEmail($email,$otp,$username) {
         $mail->Port = 587;
 
         // Recipient
-        $mail->setFrom('dev.jimin02@gmail.com', 'Nollybee');
+        $mail->setFrom('dev.jimin02@gmail.com', 'Art Gallery');
         $mail->addAddress($email);
 
         // Content

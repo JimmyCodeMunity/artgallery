@@ -3,6 +3,8 @@
 //?OrderTrackingId=1c298d87-ef37-4e7c-ab33-de3dfccce94d
 //&OrderMerchantReference=92582762768768274
 include 'acesstoken.php';
+include '../connection/connect.php';
+include '../tailwindcss.php';
 $OrderTrackingId = $_GET['OrderTrackingId'];
 $OrderMerchantReference = $_GET['OrderMerchantReference'];
 if(APP_ENVIROMENT == 'sandbox'){
@@ -23,6 +25,26 @@ curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 echo $response = curl_exec($ch);
 $responseCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+
+if($responseCode == 200){
+  // echo "success response code after transaction".$responseCode;
+  $update = "UPDATE testorder SET bought = 1 WHERE tracking_id = '$OrderTrackingId'";
+  $result = mysqli_query($conn, $update);
+
+  if($result){
+    // echo "Transaction Successful";
+    header('location:../successpay.php');
+  }
+  else{
+    echo "Failed to update transaction status in the database";
+  }
+
+}
+
 curl_close($ch);
+?>
+
+
+
 
 

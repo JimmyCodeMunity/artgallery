@@ -4,7 +4,7 @@
 @include('tailwindcss.php');
 $useremail = $_SESSION['email'];
 
-$select = "SELECT * FROM testorder WHERE buyer = '$useremail' && bought = 0";
+$select = "SELECT * FROM testorder WHERE buyer = '$useremail' && bought = 1";
 $result = mysqli_query($conn, $select);
 // $row = mysqli_fetch_array($result);
 
@@ -61,7 +61,7 @@ $total = 0; // Initialize total variable
                                 $rowproduct = mysqli_fetch_array($resultproduct);
 
                                 // Add to total if item not bought
-                                if ($row['bought'] == 0) {
+                                if ($row['bought'] == 1) {
                                     $total += $rowproduct['price'];
                                 }
                             ?>
@@ -101,13 +101,7 @@ $total = 0; // Initialize total variable
                         <div class="text-large"><strong>KES.<?php echo $total ?></strong></div>
                     </div>
                     <div class="mt-4">
-                        <?php
-                        if(mysqli_num_rows($result)>0){
-                        echo '<a href="checkout2.php?userid=' . $rowuser['id'] . '" class="btn btn-primary">Checkout</a>';
-                        } else {
-                            echo '<a href="#" class="btn bg-slate-500">No Items</a>';
-                        }
-                        ?>
+                        
                     </div>
                 </div>
             </div>

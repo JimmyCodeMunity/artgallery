@@ -27,7 +27,7 @@ function sendVerificationEmail($email,$otp,$username) {
 
 
         // Recipient
-        $mail->setFrom('nollybee@haramad.co.ke', 'Nollybee');
+        $mail->setFrom('nollybee@haramad.co.ke', 'Art Gallery');
         $mail->addAddress($email);
 
         // Content
